@@ -1,0 +1,15 @@
+version: "3.5"
+services:
+  fluentbit:
+    build: .
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+  ubuntu:
+    image: chentex/random-logger
+    depends_on:
+      - fluentbit
+    logging:
+      driver: fluentd
+      options:
+        tag: docker-ubuntu
